@@ -1,0 +1,19 @@
+{
+  "name": "solr-query-interface",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joefitter/solr-query-interface.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joefitter/solr-query-interface/issues"
+  },
+  "homepage": "https://github.com/joefitter/solr-query-interface"
+}
