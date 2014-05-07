@@ -50,9 +50,13 @@ define([
         self.trigger('andClicked');
       });
       this.listenTo(modelView, 'delete', function(model){
+        var collection = self.model.get('collection');
         // remove model from collection
-        self.model.get('collection').remove(model);
-        if(self.model.get('collection').length <= 0){
+        collection.remove(model);
+        if(collection.length){
+          collection.at(0).set('first', true);
+        }
+        if(collection.length <= 0){
           // if there are no models in the collection, remove this view
           self.trigger('delete', self.model);
           self.destroy();

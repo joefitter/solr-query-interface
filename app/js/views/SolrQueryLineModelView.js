@@ -15,9 +15,13 @@ define([
 
   return Backbone.View.extend({
     initialize: function(options){
+      var self = this;
       this.options = options || {};
       // model passed from parent view
       this.model = this.options.model;
+      this.model.on('change:first', function(){
+        self.removeOr();
+      });
     },
     events: {
       'click button.js-and': 'andClicked',
@@ -29,6 +33,9 @@ define([
       // set value attribute on field change
       var value = $('input.js-value', this.el).val();
       this.model.set('value', value);
+    },
+    removeOr: function(){
+      this.$el.find('h5').remove();
     },
     render: function(){
       this.$el.append(solrQueryLineTemplate(this.model));
