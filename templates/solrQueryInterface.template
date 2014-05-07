@@ -1,0 +1,10 @@
+<div class="query-interface">
+    <h2>Advanced Search</h2>
+    <div class="advanced-search-query"></div>
+    <button class="cmp-btn-large advanced-search-button">Go!</button>
+    <div class="clear"></div>
+</div>
+<div class="summary-wrapper">
+    <div class="summary"></div>
+    <h3><a href="#" class="refine">Refine search</a></h3>
+</div>
