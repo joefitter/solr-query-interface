@@ -8,5 +8,5 @@
 </div>
 <div class="summary-wrapper">
   <div class="summary"></div>
-  <h4><a href="#" class="refine">Refine search</a></h4>
+  <h4><a href="#" class="js-refine">Refine search</a></h4>
 </div>

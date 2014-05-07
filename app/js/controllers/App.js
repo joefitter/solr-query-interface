@@ -5,14 +5,18 @@ define(['backbone'], function(Backbone){
 
   function App($el){
     this.$el = $el;
+    // use Backbone Events
+    this.Events = _.clone(Backbone.Events);
   }
 
   App.prototype.start = function(BaseView, options){
     this.baseView = new BaseView(options);
+    // pass app reference to view
+    this.baseView.app = this;
     this.$el.html(this.baseView.render().el);
   };
 
-  App.prototype.Events = _.clone(Backbone.Events);
+  App.Events = _.clone(Backbone.Events);
 
   return App;
 });

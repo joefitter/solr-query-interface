@@ -21,20 +21,25 @@ require([
   'jquery',
   'views/BaseView',
   'controllers/App',
-  'config/columns'
+  'config/fields'
 ], function(
   $,
   BaseView,
   App,
-  columns
+  fields
 ){
   'use strict';
 
   $(function(){
-    var app = new App($('#main-region'));
 
+    var app = new App($('#main-region'));
+    
     app.start(BaseView, {
-      columns: columns,
+      fields: fields,
+    });
+
+    app.Events.on('search', function(search){
+      console.log(search);
     });
   });
 });

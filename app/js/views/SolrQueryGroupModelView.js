@@ -33,7 +33,7 @@ define([
     addItem: function(item){
       var self = this;
       var modelView = new SolrQueryLineModelView({
-        columns: this.options.columns,
+        fields: this.options.fields,
         model: item
       });
       this.listenTo(modelView, 'orClicked', function(){

@@ -21,47 +21,61 @@ define([
     className: 'query-interface-outer',
     initialize: function(options){
       this.options = options || {};
+      // collection of 'AND' groups
       this.collection = new SolrQueryGroupCollection();
       this.collection.on('add', this.addItem, this);
     },
     events: {
-      'click button.js-go': 'validate',
+      'click button.js-go': 'validateAndDoSearch',
       'click a.js-refine': 'refine'
     },
     render: function(){
       this.$el.html(solrQueryInterfaceTemplate(this.collection));
+      // add an empty 'AND' model
       this.collection.add(new SolrQueryGroupModel({
         first: true
       }));
       return this;
     },
-    addItem: function(item){
+
+    addItem: function(model){
       var solrQueryGroupModelView = new SolrQueryGroupModelView({
-        columns: this.options.columns,
-        model: item
+        // pass fields to modelView
+        fields: this.options.fields,
+        model: model
       }),
         self = this;
+
+      // 'AND' button clicked - add new 'and' group
       solrQueryGroupModelView.on('andClicked', function(){
         self.collection.add(new SolrQueryGroupModel());
       });
+
+      // Remove and group
       solrQueryGroupModelView.on('delete', function(model){
         self.collection.remove(model);
       });
+
+      // Append to DOM
       $('.advanced-search-query', this.el).append(solrQueryGroupModelView.render().el);
     },
-    validate: function(){
+    validateAndDoSearch: function(){
       var valid = true,
         self = this;
-      this.collection.each(function(item){
-        item.get('collection').each(function(thing){
-          if(thing.get('value') === '' || thing.get('field') === ''){
+      // loop through 'AND' groups
+      this.collection.each(function(model){
+        // loop through 'OR' groups
+        model.get('collection').each(function(item){
+          if(item.get('value') === '' || item.get('field') === ''){
+            // check fields have been completed, error if not
             valid = false;
             self.errorTooltip('Please complete all fields');
             return;
           } else {
-            var type = thing.get('type');
+            var type = item.get('type');
             if(type === 'equals' || type === 'is greater than' || type === 'is less than'){
-              var isInteger = /^\d+$/g.test(thing.get('value'));
+              // if search type is numerical, value must pass integer regex.
+              var isInteger = /^\d+$/g.test(item.get('value'));
               if(!isInteger){
                 valid = false;
                 self.errorTooltip('Sorry, only whole integers can be used to search a number field');
@@ -69,16 +83,10 @@ define([
               }
             }
             if(type === 'contains' || type === 'doesn\'t contain'){
-              if(thing.get('value').indexOf(' ') > -1){
+              // contains and doens't contain cannot include spaces
+              if(item.get('value').indexOf(' ') > -1){
                 valid = false;
                 self.errorTooltip('Sorry, "contains" can only include one term. Please use "Matches Phrase" if your search value contains spaces.');
-                return;
-              }
-            }
-            if(thing.get('field') === 'url'){
-              if(thing.get('value').length > 25 || thing.get('value').length < 3){
-                valid = false;
-                self.errorTooltip('Sorry, URL queries can only be between 3 and 25 characters');
                 return;
               }
             }
@@ -90,10 +98,13 @@ define([
       }
     },
     doSearch: function(){
+      // holds 'AND' groups
       var search = [];
       this.collection.each(function(item){
+        // holds 'OR' groups
         var group = [];
         item.get('collection').each(function(thing){
+          // search term
           var line = {};
           line.field = thing.get('field');
           line.type = thing.get('type');
@@ -105,8 +116,10 @@ define([
         search.push(group);
       });
       this.search = search;
+      // show summary
       this.summaryView();
-      this.trigger('search', this.search);
+      // bubble up search JSON to application
+      this.app.Events.trigger('search', this.search);
     },
     errorTooltip: function(message){
       new Tooltip({
@@ -118,33 +131,63 @@ define([
         timeout: 3000
       });
     },
+
+    /*
+     * This method turns the search query into a 
+     * human-readable sentence.
+     */
     summaryView: function(){
       var self = this;
       var summary = 'Showing all pages where ';
+      // loop through 'AND' groups
       _.each(this.search, function(item, i){
+        // prepend with 'and' if not first iteration
         if(i > 0){
           summary += ' and ';
         }
+        // loop through 'OR' groups
         _.each(item, function(thing, j){
+          // prepend with 'or' if not first iteration
           if(j > 0){
             summary += ' or ';
           }
-          var field = _.find(self.options.columns, function(x){return x.modelRef === thing.field;}).name;
-          summary += (thing.count ? 'number of ' : '');
+          // get field title from search field value
+          var field = _.find(self.options.fields, function(x){
+            return x.value === thing.field;
+          }).title;
+          if(thing.count){
+            summary += 'number of ';
+          }
+          // highlight field name
           summary += '<span class="blue">';
           summary += field;
-          summary += (thing.count ? (field.charAt(field.length-1) === 's' ? '' : 's') : '');
+          if(thing.count){
+            // check if last letter of field is 's'
+            if(field.charAt(field.length-1) !== 's'){
+              // if not, add 's' to pluralise
+              summary += 's';
+            }
+          }
           summary += '</span>';
-          summary += ' ' + (thing.characterCount ? 'character count ' : '');
-          summary += thing.type + ' <span class="blue">' + thing.value + '</span>';
+          if(thing.characterCount){
+            summary += 'character count';
+          }
+          summary += ' ' + thing.type + ' <span class="blue">' + thing.value + '</span>';
         });
       });
       summary += '.';
+      // add summary to dom
       $('.summary', this.el).html('<h3>' + summary + '</h3>');
+      /*
+       * Query interface hidden not destroyed so
+       * search can be refined if needed.
+       */
       $('.query-interface', this.el).hide();
+      // show summary view
       $('.summary-wrapper', this.el).show();
     },
     refine: function(){
+      // hide summary and show query interface
       $('.query-interface', this.el).show();
       $('.summary-wrapper', this.el).hide();
     },
