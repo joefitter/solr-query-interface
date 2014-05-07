@@ -15,3 +15,11 @@
 .summary-wrapper {
   display: none;
 }
+
+span.blue {
+  color:#56acf5;
+}
+
+pre {
+  display:none;
+}

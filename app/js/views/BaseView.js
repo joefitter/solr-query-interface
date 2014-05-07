@@ -170,7 +170,7 @@ define([
           }
           summary += '</span>';
           if(thing.characterCount){
-            summary += 'character count';
+            summary += ' character count';
           }
           summary += ' ' + thing.type + ' <span class="blue">' + thing.value + '</span>';
         });
@@ -190,6 +190,7 @@ define([
       // hide summary and show query interface
       $('.query-interface', this.el).show();
       $('.summary-wrapper', this.el).hide();
+      this.app.Events.trigger('hide');
     },
     destroy: function(){
       this.unbind();

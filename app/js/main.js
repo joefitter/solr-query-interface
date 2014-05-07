@@ -32,14 +32,20 @@ require([
 
   $(function(){
 
-    var app = new App($('#main-region'));
+    var $mainRegion = $('#main-region'),
+      $json = $('pre#search-json'),
+      app = new App($mainRegion);
     
     app.start(BaseView, {
       fields: fields,
     });
 
     app.Events.on('search', function(search){
-      console.log(search);
+      $json.show().html(JSON.stringify(search, undefined, 2));
+    });
+
+    app.Events.on('hide', function(){
+      $json.hide();
     });
   });
 });
