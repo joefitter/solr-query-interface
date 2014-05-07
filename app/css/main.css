@@ -5,7 +5,7 @@
 .search-field, .search-type, .search-line input, .second-search-type {
   float:left;
   margin-right:10px;
-  width: 150px;
+  width: 200px;
 }
 
 .delete {

@@ -3,9 +3,15 @@ define(function(){
 
   return [
     {
-      modelRef: 'url',
-      title: 'Url',
+      value: 'url',
+      title: 'URL',
       isSortable: true
+    },
+    {
+      value: 'depth',
+      title: 'Depth',
+      isSortable: true,
+      isNumber: true
     }
   ];
 });

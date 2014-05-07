@@ -8,7 +8,8 @@ require.config({
     mustache: '../vendor/mustache/mustache',
     stache: '../vendor/requirejs-mustache/stache',
     tooltip: '../vendor/backbone-tooltip/src/backbone-tooltip.amd',
-    select: '../vendor/backbone-select/src/backbone-select.amd'
+    select: '../vendor/backbone-select/src/backbone-select.amd',
+    scrollTo: '../vendor/jquery.scrollTo/jquery.scrollTo'
   },
   stache: {
     extension: '.template',

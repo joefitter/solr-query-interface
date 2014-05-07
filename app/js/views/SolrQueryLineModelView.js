@@ -1,4 +1,4 @@
-/*global _*/
+/*global _,$*/
 
 define([
   'backbone',
@@ -82,7 +82,7 @@ define([
       var self = this,
         options = this.isNumber ? _.clone(this.searchType.number) : _.clone(this.searchType.string);
       var column = _.find(this.options.columns, function(item){
-        return item.id === self.model.get('field');
+        return item.value === self.model.get('field');
       });
       if(column){
         if(!column.sortable){
