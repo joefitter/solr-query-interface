@@ -3,8 +3,9 @@ define(function(){
 
   return [
     {
-      modelRef: 'something',
-      title: 'hello'
+      modelRef: 'url',
+      title: 'Url',
+      isSortable: true
     }
   ];
 });

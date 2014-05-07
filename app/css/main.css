@@ -1,0 +1,17 @@
+#main-region {
+  margin-top: 70px;
+}
+
+.search-field, .search-type, .search-line input, .second-search-type {
+  float:left;
+  margin-right:10px;
+  width: 150px;
+}
+
+.delete {
+  float:right;
+}
+
+.summary-wrapper {
+  display: none;
+}

@@ -25,8 +25,8 @@ define([
       this.collection.on('add', this.addItem, this);
     },
     events: {
-      'click button.advanced-search-button': 'validate',
-      'click a.refine': 'refine'
+      'click button.js-go': 'validate',
+      'click a.js-refine': 'refine'
     },
     render: function(){
       this.$el.html(solrQueryInterfaceTemplate(this.collection));
@@ -110,9 +110,10 @@ define([
     },
     errorTooltip: function(message){
       new Tooltip({
-        target: $('.advanced-search-button'),
+        $el: $('.js-go'),
         text: message,
-        type: 'error',
+        context: 'danger',
+        prefix: 'Error',
         align: 'left',
         timeout: 3000
       });

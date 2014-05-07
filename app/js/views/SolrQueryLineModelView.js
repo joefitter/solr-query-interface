@@ -17,12 +17,10 @@ define([
       this.model = this.options.model;
     },
     events: {
-      'click button.and': 'andClicked',
-      'click button.or': 'orClicked',
-      'click button.delete': 'deleteClicked',
-      'keyup input.value': 'valueChanged',
-      'change input.value': 'valueChanged',
-      'paste input.value': 'valueChanged'
+      'click button.js-and': 'andClicked',
+      'click button.js-or': 'orClicked',
+      'click button.js-delete': 'deleteClicked',
+      'change input.js-value': 'valueChanged'
     },
     searchType: {
       string: [

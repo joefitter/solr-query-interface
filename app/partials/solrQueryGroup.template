@@ -1,2 +1,2 @@
-{{^attributes.first}}<h3>-AND-</h3>{{/attributes.first}}
-<div class="search-group"></div>
+{{^attributes.first}}<h4>-AND-</h4>{{/attributes.first}}
+<div class="search-group well"></div>

@@ -1,10 +1,12 @@
-<div class="query-interface">
+<div class="query-interface panel panel-default">
+  <div class="panel-body">
     <h2>Advanced Search</h2>
     <div class="advanced-search-query"></div>
-    <button class="cmp-btn-large advanced-search-button">Go!</button>
+    <button class="btn btn-lg btn-primary js-go pull-right">Go!</button>
     <div class="clear"></div>
+  </div>
 </div>
 <div class="summary-wrapper">
-    <div class="summary"></div>
-    <h3><a href="#" class="refine">Refine search</a></h3>
+  <div class="summary"></div>
+  <h4><a href="#" class="refine">Refine search</a></h4>
 </div>

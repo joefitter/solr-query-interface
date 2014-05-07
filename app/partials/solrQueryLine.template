@@ -1,13 +1,13 @@
-{{^attributes.first}}<h3>-OR-</h3>{{/attributes.first}}
+{{^attributes.first}}<h5>-OR-</h5>{{/attributes.first}}
 <div class="search-line">
-    <div class="search-field backbone-select"></div>
-    <div class="search-type backbone-select"></div>
-    <div class="second-search-type backbone-select"></div>
-    <input type="text" placeholder="Search Text..." class="value" />
-    <div class="buttons">
-        <button class="btn cmp-btn-secondary and">And</button>
-        <button class="btn cmp-btn-secondary or">Or</button>
-        <button class="btn cmp-btn-secondary delete{{#attributes.only}} cmp-btn-disabled{{/attributes.only}}"{{#attributes.only}} disabled{{/attributes.only}}>Delete</button>
-    </div>
-    <div class="clear"></div>
+  <div class="search-field backbone-select"></div>
+  <div class="search-type backbone-select"></div>
+  <div class="second-search-type backbone-select"></div>
+  <input type="text" placeholder="Search Text..." class="js-value form-control" />
+  <div class="buttons">
+    <button class="btn btn-default js-and">And</button>
+    <button class="btn btn-default js-or">Or</button>
+    <button class="btn btn-danger js-delete"{{#attributes.only}} disabled{{/attributes.only}}>Delete</button>
+  </div>
+  <div class="clear"></div>
 </div>
