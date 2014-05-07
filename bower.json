@@ -12,5 +12,15 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.1",
+    "requirejs": "~2.1.11",
+    "requirejs-text": "~2.0.12",
+    "requirejs-mustache": "*",
+    "mustache": "~0.8.1",
+    "backbone-tooltip": "~1.4.0",
+    "bootstrap": "~3.1.1"
+  }
 }

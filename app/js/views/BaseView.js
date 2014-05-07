@@ -1,4 +1,4 @@
-/*global _*/
+/*global $,_*/
 
 define([
   'backbone',
@@ -6,7 +6,7 @@ define([
   '../collections/SolrQueryGroupCollection',
   '../models/SolrQueryGroupModel',
   './SolrQueryGroupModelView',
-  'includes/tooltip/views/BaseView'
+  'tooltip'
 ], function(
   Backbone,
   solrQueryInterfaceTemplate,

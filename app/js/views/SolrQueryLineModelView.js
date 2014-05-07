@@ -3,7 +3,7 @@
 define([
   'backbone',
   'stache!solrQueryLine',
-  'includes/customselect/views/BaseView'
+  'select'
 ], function(
   Backbone,
   solrQueryLineTemplate,
