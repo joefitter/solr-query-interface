@@ -159,7 +159,7 @@ define([
             summary += 'number of ';
           }
           // highlight field name
-          summary += '<span class="orange">';
+          summary += '<span class="purple">';
           summary += field;
           if(thing.count){
             // check if last letter of field is 's'
@@ -172,7 +172,7 @@ define([
           if(thing.characterCount){
             summary += ' character count';
           }
-          summary += ' ' + thing.type + ' <span class="orange">' + thing.value + '</span>';
+          summary += ' ' + thing.type + ' <span class="purple">' + thing.value + '</span>';
         });
       });
       summary += '.';
