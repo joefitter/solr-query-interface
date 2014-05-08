@@ -3,6 +3,7 @@
 define([
   'backbone',
   'stache!solrQueryInterface',
+  'stache!solrQuerySummary',
   '../collections/SolrQueryGroupCollection',
   '../models/SolrQueryGroupModel',
   './SolrQueryGroupModelView',
@@ -10,6 +11,7 @@ define([
 ], function(
   Backbone,
   solrQueryInterfaceTemplate,
+  solrQuerySummary,
   SolrQueryGroupCollection,
   SolrQueryGroupModel,
   SolrQueryGroupModelView,
@@ -137,47 +139,8 @@ define([
      * human-readable sentence.
      */
     summaryView: function(){
-      var self = this;
-      var summary = 'Showing all pages where ';
-      // loop through 'AND' groups
-      _.each(this.search, function(item, i){
-        // prepend with 'and' if not first iteration
-        if(i > 0){
-          summary += ' and ';
-        }
-        // loop through 'OR' groups
-        _.each(item, function(thing, j){
-          // prepend with 'or' if not first iteration
-          if(j > 0){
-            summary += ' or ';
-          }
-          // get field title from search field value
-          var field = _.find(self.options.fields, function(x){
-            return x.value === thing.field;
-          }).title;
-          if(thing.count){
-            summary += 'number of ';
-          }
-          // highlight field name
-          summary += '<span class="purple">';
-          summary += field;
-          if(thing.count){
-            // check if last letter of field is 's'
-            if(field.charAt(field.length-1) !== 's'){
-              // if not, add 's' to pluralise
-              summary += 's';
-            }
-          }
-          summary += '</span>';
-          if(thing.characterCount){
-            summary += ' character count';
-          }
-          summary += ' ' + thing.type + ' <span class="purple">' + thing.value + '</span>';
-        });
-      });
-      summary += '.';
       // add summary to dom
-      $('.summary', this.el).html('<h3>' + summary + '</h3>');
+      $('.summary', this.el).html(solrQuerySummary(this.search));
       /*
        * Query interface hidden not destroyed so
        * search can be refined if needed.
